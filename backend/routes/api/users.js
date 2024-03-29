@@ -30,11 +30,11 @@ const validateSignup = [
   handleValidationErrors
 ];
 
-router.get('/', async (req, res) => {
-  res.json({
-    message: 'test'
-  })
-})
+// router.get('/', async (req, res) => {
+//   res.json({
+//     message: 'test'
+//   })
+// })
 
 // Sign up
 router.post(
