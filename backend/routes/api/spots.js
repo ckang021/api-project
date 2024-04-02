@@ -1,7 +1,7 @@
 const express = require('express')
 
 const { setTokenCookie, restoreUser, requireAuth } = require('../../utils/auth')
-const { Spot, Review, SpotImage } = require('../../db/models')
+const { Spot, Review, SpotImage, User } = require('../../db/models')
 
 const router = express.Router();
 
@@ -105,7 +105,81 @@ router.get('/current', requireAuth, async (req, res) => {
     res.json(allSpots)
 })
 
+//Get Spots from an id
+router.get('/:spotId', async (req, res) => {
+  const spotId = req.params.spotId
 
+  const spotsById = await Spot.findAll({
+    where: { id: spotId },
+    include: [
+     {
+      model: SpotImage ,
+      attributes: ['id', 'url', 'preview']
+    },
+     {
+      model: User,
+      as: 'Owner',
+      attributes: ['id', 'firstName', 'lastName']
+     },
+     { model: Review }
+    ]
+  })
+
+  if(spotsById.length === 0){
+    res.status(400);
+    return res.json({
+      message: "Specified spot does not exist..."
+    })
+  }
+
+  let listOfSpots = [];
+
+    spotsById.forEach(spot => {
+      const spotJson = spot.toJSON()
+
+      let total = 0;
+
+       spotJson.Reviews.forEach((star) => {
+         total += star.stars
+       })
+
+       const avg = spotJson.Reviews.length > 0 ? total / spotJson.Reviews.length : 'Be the first to review this place!'
+
+      const payload = {
+        id: spotJson.id,
+        ownerId: spotJson.Owner.id,
+        address: spotJson.address,
+        city: spotJson.city,
+        state: spotJson.state,
+        country: spotJson.country,
+        lat: spotJson.lat,
+        lng: spotJson.lng,
+        name: spotJson.name,
+        description: spotJson.description,
+        price: spotJson.price,
+        createdAt: spotJson.createdAt,
+        updatedAt: spotJson.updatedAt,
+        //length of the reviews
+        numReviews: spotJson.Reviews.length,
+        avgStarRating: avg,
+        SpotImages: spotJson.SpotImages,
+        Owner: {
+          id: spotJson.Owner.id,
+          firstName: spotJson.Owner.firstName,
+          lastName: spotJson.Owner.lastName
+        }
+
+      }
+
+      //getting the average rating
+      delete spotJson.Reviews;
+
+      listOfSpots.push(payload);
+    })
+
+    const allSpots = { Spots: listOfSpots }
+    res.json(allSpots)
+})
 
 
 
