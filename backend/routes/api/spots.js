@@ -2,6 +2,7 @@ const express = require('express')
 
 const { setTokenCookie, restoreUser, requireAuth } = require('../../utils/auth')
 const { Spot, Review, SpotImage, User } = require('../../db/models')
+const { validateAddSpot } = require('../../utils/validation')
 
 const router = express.Router();
 
@@ -181,7 +182,7 @@ router.get('/:spotId', async (req, res) => {
 })
 
 // Create a Spot
-router.post('/', async (req, res) => {
+router.post('/', requireAuth, validateAddSpot, async (req, res, next) => {
   let { address, city, state, country, lat, lng, name, description, price } = req.body;
 
   const createSpot = await Spot.create({
