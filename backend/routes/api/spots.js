@@ -36,13 +36,11 @@ router.get('/', async (req, res) => {
 
 
     //getting the image preview link
-    spotJson.SpotImages.forEach((imgPreview) => {
-      if(imgPreview.preview){
-        spotJson.previewImage = imgPreview.url;
-      } else {
-        spotJson.previewImage = 'No Image Preview...'
-      }
-    })
+    if(spotJson.SpotImages[0]){
+      spotJson.previewImage = spot.SpotImages[0].url
+    } else {
+      spotJson.previewImage = 'No Image Preview...'
+    }
 
     delete spotJson.SpotImages;
     delete spotJson.Reviews;
@@ -201,6 +199,8 @@ router.post('/', requireAuth, validateAddSpot, async (req, res, next) => {
   res.status(201)
   return res.json(createSpot)
 })
+
+
 
 
 
