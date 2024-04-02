@@ -171,7 +171,6 @@ router.get('/:spotId', async (req, res) => {
 
       }
 
-      //getting the average rating
       delete spotJson.Reviews;
 
       listOfSpots.push(payload);
