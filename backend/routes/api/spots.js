@@ -200,6 +200,40 @@ router.post('/', requireAuth, validateAddSpot, async (req, res, next) => {
   return res.json(createSpot)
 })
 
+// Add Image to a Spot by Spot id !COME BACK TO THIS!
+router.post('/:spotId/images', requireAuth, async (req, res, next) => {
+  const spotId = req.params.spotId
+  const spot = await Spot.findByPk(spotId)
+  const { url, preview } = req.body
+
+  if (!spot){
+    res.status(404)
+    return res.json({
+      message: "Spot couldn't be found"
+    })
+  }
+
+  if (req.user.id === spot.ownerId){
+    const newImage = await SpotImage.create({
+      url,
+      preview
+    })
+
+    await spot.addSpotImages(newImage)
+
+    res.json({
+      id: newImage.id,
+      url: newImage.url,
+      preview: newImage.preview
+    })
+  } else {
+    res.status(403)
+    return res.json({
+      message: 'You do not own this location...'
+    })
+  }
+
+})
 
 
 
