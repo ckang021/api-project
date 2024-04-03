@@ -178,7 +178,7 @@ router.get('/:spotId', async (req, res) => {
 })
 
 // Create a Spot
-router.post('/', requireAuth, validateAddSpot, async (req, res, next) => {
+router.post('/', requireAuth, validateAddSpot, async (req, res) => {
   let { address, city, state, country, lat, lng, name, description, price } = req.body;
 
   const createSpot = await Spot.create({
@@ -234,7 +234,7 @@ router.post('/:spotId/images', requireAuth, async (req, res, next) => {
 })
 
 //Edit a Spot
-router.put('/:spotId', validateUpdateSpot, requireAuth, async (req, res, next) => {
+router.put('/:spotId', validateUpdateSpot, requireAuth, async (req, res) => {
   const spotId = req.params.spotId;
   const spot = await Spot.findByPk(spotId);
   let { address, city, state, country, lat, lng, name, description, price } = req.body;
