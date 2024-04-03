@@ -2,7 +2,7 @@ const express = require('express')
 
 const { setTokenCookie, restoreUser, requireAuth } = require('../../utils/auth')
 const { Spot, Review, SpotImage, User } = require('../../db/models')
-const { validateAddSpot } = require('../../utils/validation')
+const { validateAddSpot, validateUpdateSpot } = require('../../utils/validation')
 
 const router = express.Router();
 
@@ -234,9 +234,37 @@ router.post('/:spotId/images', requireAuth, async (req, res, next) => {
 })
 
 //Edit a Spot
-router.put('/:spotId', requireAuth, async (req, res, next) => {
+router.put('/:spotId', validateUpdateSpot, requireAuth, async (req, res, next) => {
   const spotId = req.params.spotId;
+  const spot = await Spot.findByPk(spotId);
+  let { address, city, state, country, lat, lng, name, description, price } = req.body;
 
+  if (!spot){
+    res.status(404)
+    return res.json({
+      message: "Spot couldn't be found"
+    })
+  }
+
+  if(req.user.id === spot.ownerId){
+    if (address !== undefined) spot.address = address;
+    if (city !== undefined) spot.city = city;
+    if (state !== undefined) spot.state = state;
+    if (country !== undefined) spot.country = country;
+    if (lat !== undefined) spot.lat = lat;
+    if (lng !== undefined) spot.lng = lng;
+    if (name !== undefined) spot.name = name;
+    if (description !== undefined) spot.description = description;
+    if (price !== undefined) spot.price = price
+
+    await spot.save()
+    res.json(spot)
+  } else {
+    res.status(403)
+    return res.json({
+      message: 'You do not own this location...'
+    })
+  }
 
 })
 
