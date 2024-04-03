@@ -307,7 +307,7 @@ router.get('/:spotId/reviews', async (req, res) => {
 
   const spotReviews = await Review.findAll({
     where: {
-      id: spotId
+      spotId
     },
     include: [
       {
@@ -321,7 +321,8 @@ router.get('/:spotId/reviews', async (req, res) => {
     ]
   })
 
-  res.json(spotReviews)
+  const allReview = { Reviews: spotReviews }
+  res.json(allReview);
 })
 
 
