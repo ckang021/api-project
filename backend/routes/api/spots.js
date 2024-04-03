@@ -2,7 +2,8 @@ const express = require('express')
 
 const { requireAuth } = require('../../utils/auth')
 const { Spot, Review, ReviewImage, SpotImage, User } = require('../../db/models')
-const { validateAddSpot, validateUpdateSpot } = require('../../utils/validation')
+const { validateAddSpot, validateUpdateSpot, validateAddReview } = require('../../utils/validation');
+const spot = require('../../db/models/spot');
 
 const router = express.Router();
 
@@ -181,21 +182,29 @@ router.get('/:spotId', async (req, res) => {
 router.post('/', requireAuth, validateAddSpot, async (req, res) => {
   let { address, city, state, country, lat, lng, name, description, price } = req.body;
 
-  const createSpot = await Spot.create({
-    ownerId: req.user.id,
-    address,
-    city,
-    state,
-    country,
-    lat,
-    lng,
-    name,
-    description,
-    price
-  })
+  if (req.user.id){
+    const createSpot = await Spot.create({
+      ownerId: req.user.id,
+      address,
+      city,
+      state,
+      country,
+      lat,
+      lng,
+      name,
+      description,
+      price
+    })
 
-  res.status(201)
-  return res.json(createSpot)
+    res.status(201)
+    return res.json(createSpot)
+  } else {
+    res.status(403)
+    return res.json({
+      message: 'Forbidden'
+    })
+  }
+
 })
 
 // Add Image to a Spot by Spot id !COME BACK TO THIS!
@@ -227,7 +236,7 @@ router.post('/:spotId/images', requireAuth, async (req, res) => {
   } else {
     res.status(403)
     return res.json({
-      message: 'You do not own this location...'
+      message: 'Forbidden'
     })
   }
 
@@ -262,7 +271,7 @@ router.put('/:spotId', validateUpdateSpot, requireAuth, async (req, res) => {
   } else {
     res.status(403)
     return res.json({
-      message: 'You do not own this location...'
+      message: 'Forbidden'
     })
   }
 
@@ -288,7 +297,7 @@ router.delete('/:spotId', requireAuth, async (req, res) => {
   } else {
     res.status(403)
     return res.json({
-      message: 'You do not own this location...'
+      message: 'Forbidden'
     })
   }
 })
@@ -325,7 +334,43 @@ router.get('/:spotId/reviews', async (req, res) => {
   res.json(allReview);
 })
 
+//Create Review by Spot id
+router.post('/:spotId/reviews', validateAddReview, requireAuth, async(req, res) => {
+  const spotId = req.params.spotId;
+  const spot = await Spot.findByPk(spotId)
+  let { review , stars } = req.body;
 
+  if (!spot){
+    res.status(404)
+    return res.json({
+      message: "Spot couldn't be found"
+    })
+  }
+
+  const reviewCheck = await Review.findOne({
+    where: {
+      userId: req.user.id,
+      spotId: spotId
+    }
+  })
+
+  if(reviewCheck){
+    res.status(500)
+    return res.json({
+      message: "User already has a review for this spot"
+    })
+  }
+
+  const newReview = await Review.create({
+    userId: req.user.id,
+    spotId,
+    review,
+    stars
+  })
+
+  res.status(201)
+  return res.json(newReview)
+})
 
 
 
