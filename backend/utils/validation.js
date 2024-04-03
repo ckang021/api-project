@@ -70,6 +70,10 @@ const validateAddSpot = [
   handleValidationErrors
 ]
 
+const validateChangeSpot = [
+
+]
+
 module.exports = {
   handleValidationErrors, validateAddSpot
 };
