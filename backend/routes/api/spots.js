@@ -199,7 +199,7 @@ router.post('/', requireAuth, validateAddSpot, async (req, res) => {
 })
 
 // Add Image to a Spot by Spot id !COME BACK TO THIS!
-router.post('/:spotId/images', requireAuth, async (req, res, next) => {
+router.post('/:spotId/images', requireAuth, async (req, res) => {
   const spotId = req.params.spotId
   const spot = await Spot.findByPk(spotId)
   const { url, preview } = req.body
@@ -268,9 +268,30 @@ router.put('/:spotId', validateUpdateSpot, requireAuth, async (req, res) => {
 
 })
 
+//Delete a spot
+router.delete('/:spotId', requireAuth, async (req, res, next) => {
+  const spotId = req.params.spotId;
+  const spot = await Spot.findByPk(spotId)
 
+  if (!spot){
+    res.status(404)
+    return res.json({
+      message: "Spot couldn't be found"
+    })
+  }
 
-
+  if (req.user.id === spot.ownerId){
+    await spot.destroy()
+    res.json(
+      { message: "Successfully deleted" }
+    )
+  } else {
+    res.status(403)
+    return res.json({
+      message: 'You do not own this location...'
+    })
+  }
+})
 
 
 
