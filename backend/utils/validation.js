@@ -63,40 +63,40 @@ const validateAddSpot = [
 
 const validateUpdateSpot = [
   check('address')
-    .optional()
     .isLength({min: 5, max: 255})
+    .optional()
     .withMessage('Street address is required'),
   check('city')
-    .optional()
     .isLength({min: 5, max: 50})
+    .optional()
     .withMessage('City is required'),
   check('state')
-    .optional()
     .isLength({min: 2, max: 50})
+    .optional()
     .withMessage('State is required'),
   check('country')
-    .optional()
     .isLength({min: 5, max: 50})
+    .optional()
     .withMessage('Country is required'),
   check('lat')
-    .optional()
     .isFloat({min: -90, max: 90})
+    .optional()
     .withMessage('Latitude must be within -90 and 90'),
   check('lng')
-    .optional()
     .isFloat({min: -180, max: 180})
+    .optional()
     .withMessage('Longitude must be within -180 and 180'),
   check('name')
-    .optional()
     .isLength({min: 5, max: 50})
+    .optional()
     .withMessage('Name must be less than 50 characters'),
   check('description')
-    .optional()
     .isLength({min: 10, max: 500})
+    .optional()
     .withMessage('Description is required'),
   check('price')
-    .optional()
     .isFloat({min: 0})
+    .optional()
     .withMessage('Price per day must be a positive number'),
   handleValidationErrors
 ]
