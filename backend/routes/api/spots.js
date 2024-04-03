@@ -3,7 +3,6 @@ const express = require('express')
 const { requireAuth } = require('../../utils/auth')
 const { Spot, Review, ReviewImage, SpotImage, User } = require('../../db/models')
 const { validateAddSpot, validateUpdateSpot, validateAddReview } = require('../../utils/validation');
-const spot = require('../../db/models/spot');
 
 const router = express.Router();
 
@@ -370,7 +369,6 @@ router.post('/:spotId/reviews', validateAddReview, requireAuth, async(req, res) 
   res.status(201)
   return res.json(newReview)
 })
-
 
 
 
