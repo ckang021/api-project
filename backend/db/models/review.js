@@ -25,8 +25,8 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Review.init({
-    spotId: DataTypes.INTEGER,
     userId: DataTypes.INTEGER,
+    spotId: DataTypes.INTEGER,
     review: {
       type: DataTypes.STRING,
       validate: {

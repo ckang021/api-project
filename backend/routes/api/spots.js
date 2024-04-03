@@ -1,7 +1,7 @@
 const express = require('express')
 
 const { requireAuth } = require('../../utils/auth')
-const { Spot, Review, SpotImage, User } = require('../../db/models')
+const { Spot, Review, ReviewImage, SpotImage, User } = require('../../db/models')
 const { validateAddSpot, validateUpdateSpot } = require('../../utils/validation')
 
 const router = express.Router();
@@ -19,7 +19,7 @@ router.get('/', async (req, res) => {
 
   let listOfSpots = [];
   spots.forEach(spot => {
-    const spotJson = spot.toJSON()
+    const spotJson = spot.toJSON() //to POJO!
 
      //getting the average rating
      let total = 0;
@@ -60,7 +60,7 @@ router.get('/', async (req, res) => {
 // Get Spots owned by current User
 router.get('/current', requireAuth, async (req, res) => {
     const spots = await Spot.findAll({
-      where: { ownerId: req.user.id},
+      where: { ownerId: req.user.id },
       include: [
         {model: Review},
         {model: SpotImage}
@@ -269,7 +269,7 @@ router.put('/:spotId', validateUpdateSpot, requireAuth, async (req, res) => {
 })
 
 //Delete a spot
-router.delete('/:spotId', requireAuth, async (req, res, next) => {
+router.delete('/:spotId', requireAuth, async (req, res) => {
   const spotId = req.params.spotId;
   const spot = await Spot.findByPk(spotId)
 
@@ -293,7 +293,36 @@ router.delete('/:spotId', requireAuth, async (req, res, next) => {
   }
 })
 
+//Get all Reviews by Spot Id
+router.get('/:spotId/reviews', async (req, res) => {
+  const spotId = req.params.spotId;
+  const spot = await Spot.findByPk(spotId)
 
+  if (!spot){
+    res.status(404)
+    return res.json({
+      message: "Spot couldn't be found"
+    })
+  }
+
+  const spotReviews = await Review.findAll({
+    where: {
+      id: spotId
+    },
+    include: [
+      {
+        model: User,
+        attributes: ['id', 'firstName', 'lastName']
+      },
+      {
+        model: ReviewImage,
+        attributes: ['id', 'url']
+      }
+    ]
+  })
+
+  res.json(spotReviews)
+})
 
 
 
