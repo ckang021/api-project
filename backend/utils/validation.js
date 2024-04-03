@@ -1,5 +1,5 @@
 // backend/utils/validation.js
-const { validationResult, check, param, query } = require('express-validator');
+const { validationResult, check } = require('express-validator');
 
 // middleware for formatting errors from express-validator middleware
 // (to customize, see express-validator's documentation)

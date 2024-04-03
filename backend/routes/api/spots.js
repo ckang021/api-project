@@ -1,6 +1,6 @@
 const express = require('express')
 
-const { setTokenCookie, restoreUser, requireAuth } = require('../../utils/auth')
+const { requireAuth } = require('../../utils/auth')
 const { Spot, Review, SpotImage, User } = require('../../db/models')
 const { validateAddSpot, validateUpdateSpot } = require('../../utils/validation')
 
