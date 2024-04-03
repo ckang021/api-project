@@ -23,55 +23,42 @@ const handleValidationErrors = (req, _res, next) => {
 
 const validateAddSpot = [
   check('address')
-    .not()
-    .isEmpty()
+    .exists({ checkFalsy: true })
     .isLength({min: 5, max: 255})
     .withMessage('Street address is required'),
   check('city')
-    .not()
-    .isEmpty()
+    .exists({ checkFalsy: true })
     .isLength({min: 5, max: 50})
     .withMessage('City is required'),
   check('state')
-    .not()
-    .isEmpty()
+    .exists({ checkFalsy: true })
     .isLength({min: 2, max: 50})
     .withMessage('State is required'),
   check('country')
-    .not()
-    .isEmpty()
+    .exists({ checkFalsy: true })
     .isLength({min: 5, max: 50})
     .withMessage('Country is required'),
   check('lat')
-    .not()
-    .isEmpty()
+    .exists({ checkFalsy: true })
     .isFloat({min: -90, max: 90})
     .withMessage('Latitude must be within -90 and 90'),
   check('lng')
-    .not()
-    .isEmpty()
+    .exists({ checkFalsy: true })
     .isFloat({min: -180, max: 180})
     .withMessage('Longitude must be within -180 and 180'),
   check('name')
-    .not()
-    .isEmpty()
+    .exists({ checkFalsy: true })
     .isLength({min: 5, max: 50})
     .withMessage('Name must be less than 50 characters'),
   check('description')
-    .not()
-    .isEmpty()
+    .exists({ checkFalsy: true })
     .isLength({min: 10, max: 500})
     .withMessage('Description is required'),
   check('price')
-    .not()
-    .isEmpty()
+    .exists({ checkFalsy: true })
     .isFloat({min: 0})
     .withMessage('Price per day must be a positive number'),
   handleValidationErrors
-]
-
-const validateChangeSpot = [
-
 ]
 
 module.exports = {
