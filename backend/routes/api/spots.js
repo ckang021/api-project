@@ -19,7 +19,7 @@ router.get('/', async (req, res) => {
 
   let listOfSpots = [];
   spots.forEach(spot => {
-    const spotJson = spot.toJSON()
+    const spotJson = spot.toJSON() //to POJO!
 
      //getting the average rating
      let total = 0;
