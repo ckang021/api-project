@@ -113,7 +113,19 @@ const validateAddReview = [
 handleValidationErrors
 ]
 
+const validateUpdateReview = [
+  check('review')
+    .isLength({ min: 1, max: 500})
+    .optional()
+    .withMessage('Review text is required'),
+  check('stars')
+    .isInt({ min: 1, max: 5})
+    .optional()
+    .withMessage('Stars must be an integer from 1 to 5'),
+handleValidationErrors
+]
+
 
 module.exports = {
-  handleValidationErrors, validateAddSpot, validateUpdateSpot, validateAddReview
+  handleValidationErrors, validateAddSpot, validateUpdateSpot, validateAddReview, validateUpdateReview
 };

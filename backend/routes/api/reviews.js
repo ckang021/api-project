@@ -3,6 +3,7 @@ const router = express.Router();
 
 const { requireAuth } = require('../../utils/auth')
 const { Review, User, Spot, SpotImage, ReviewImage } = require('../../db/models')
+const { validateUpdateReview } = require('../../utils/validation');
 
 //Get all Reviews of current User
 router.get('/current', requireAuth, async(req, res) => {
@@ -100,5 +101,31 @@ router.post('/:reviewId/images', requireAuth, async(req, res) => {
   }
 })
 
+//Edit a Review
+router.put('/:reviewId', validateUpdateReview, requireAuth, async(req, res) => {
+  const reviewId = req.params.reviewId
+  const foundReview = await Review.findByPk(reviewId)
+  let { review, stars } = req.body;
+
+  if (!foundReview){
+    res.status(404)
+    return res.json({
+      message: "Review couldn't be found"
+    })
+  }
+
+  if (req.user.id === foundReview.userId){
+    if (review !== undefined) foundReview.review = review;
+    if (stars !== undefined) foundReview.stars = stars;
+
+    await foundReview.save()
+    res.json(foundReview)
+  } else {
+    res.status(403)
+    return res.json({
+      message: 'Forbidden'
+    })
+  }
+})
 
 module.exports = router;
