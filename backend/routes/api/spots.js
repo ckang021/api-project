@@ -242,7 +242,7 @@ router.post('/:spotId/images', requireAuth, async (req, res) => {
 })
 
 //Edit a Spot
-router.put('/:spotId', validateUpdateSpot, requireAuth, async (req, res) => {
+router.put('/:spotId', requireAuth, validateUpdateSpot, async (req, res) => {
   const spotId = req.params.spotId;
   const spot = await Spot.findByPk(spotId);
   let { address, city, state, country, lat, lng, name, description, price } = req.body;
@@ -334,7 +334,7 @@ router.get('/:spotId/reviews', async (req, res) => {
 })
 
 //Create Review by Spot id
-router.post('/:spotId/reviews', requireAuth, validateUpdateReview, async(req, res) => {
+router.post('/:spotId/reviews', requireAuth, validateAddReview, async(req, res) => {
   const spotId = req.params.spotId;
   const spot = await Spot.findByPk(spotId)
   let { review , stars } = req.body;
