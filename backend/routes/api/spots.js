@@ -360,7 +360,7 @@ router.post('/:spotId/reviews', requireAuth, validateUpdateReview, async(req, re
     })
   }
 
-  if (req.user.id === )
+  // if (req.user.id === )
   const newReview = await Review.create({
     userId: req.user.id,
     spotId,
