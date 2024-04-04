@@ -2,7 +2,7 @@ const express = require('express')
 
 const { requireAuth } = require('../../utils/auth')
 const { Spot, Review, ReviewImage, SpotImage, User } = require('../../db/models')
-const { validateAddSpot, validateUpdateSpot, validateAddReview } = require('../../utils/validation');
+const { validateAddSpot, validateUpdateSpot, validateAddReview, validateUpdateReview } = require('../../utils/validation');
 
 const router = express.Router();
 
@@ -334,7 +334,7 @@ router.get('/:spotId/reviews', async (req, res) => {
 })
 
 //Create Review by Spot id
-router.post('/:spotId/reviews', validateAddReview, requireAuth, async(req, res) => {
+router.post('/:spotId/reviews', requireAuth, validateUpdateReview, async(req, res) => {
   const spotId = req.params.spotId;
   const spot = await Spot.findByPk(spotId)
   let { review , stars } = req.body;
@@ -360,6 +360,7 @@ router.post('/:spotId/reviews', validateAddReview, requireAuth, async(req, res) 
     })
   }
 
+  if (req.user.id === )
   const newReview = await Review.create({
     userId: req.user.id,
     spotId,
