@@ -1,8 +1,8 @@
 const express = require('express')
 
 const { requireAuth } = require('../../utils/auth')
-const { Spot, Review, ReviewImage, SpotImage, User } = require('../../db/models')
-const { validateAddSpot, validateUpdateSpot, validateAddReview, validateUpdateReview } = require('../../utils/validation');
+const { Spot, Review, ReviewImage, SpotImage, User, Booking } = require('../../db/models')
+const { validateAddSpot, validateUpdateSpot, validateAddReview } = require('../../utils/validation');
 
 const router = express.Router();
 
@@ -372,7 +372,61 @@ router.post('/:spotId/reviews', requireAuth, validateUpdateReview, async(req, re
   return res.json(newReview)
 })
 
+//Get all bookings by spot id
+router.get('/:spotId/bookings', requireAuth, async(req, res) => {
+  const spotId = req.params.spotId;
+  const spot = await Spot.findByPk(spotId)
 
+  if (!spot){
+    res.status(404)
+    return res.json({
+      message: "Spot couldn't be found"
+    })
+  }
+
+  if (req.user.id === spot.ownerId){
+    const currBooking = await Booking.findAll({
+      include: [{
+        model: User,
+        attributes: ['id', `firstName`, `lastName`]
+      }],
+      where: {
+        spotId
+      }
+    })
+
+    const payload = []
+    currBooking.forEach(booking => {
+      payload.push({
+        User: {
+          id: booking.User.id,
+          firstName: booking.User.firstName,
+          lastName: booking.User.lastName
+        },
+        id: booking.id,
+        spotId: booking.spotId,
+        userId: booking.userId,
+        startDate: booking.startDate,
+        endDate: booking.endDate,
+        createdAt: booking.createdAt,
+        updatedAt: booking.updatedAt
+      })
+    })
+
+    const booking = { Bookings: payload }
+    return res.json(booking)
+  } else {
+    const hiddenBooking = await Booking.findAll({
+      where: {
+        spotId
+      },
+      attributes: ['spotId', 'startDate', 'endDate']
+    })
+    const booking = { Bookings: hiddenBooking }
+    return res.json(booking)
+  }
+
+})
 
 
 
