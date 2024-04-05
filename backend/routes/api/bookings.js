@@ -170,6 +170,16 @@ router.delete('/:bookingId', requireAuth, async (req, res) => {
   }
 
   const spot = await Spot.findByPk(booking.spotId)
+  const bookedStartDate = new Date(booking.startDate)
+  const currDate = new Date()
+
+    if (bookedStartDate < currDate){
+      res.status(403)
+      return res.json({
+        message: "Bookings that have been started can't be deleted"
+      })
+    }
+
   if (req.user.id === booking.userId || req.user.id === spot.ownerId){
     const bookedStartDate = new Date(booking.startDate)
     const currDate = new Date()
