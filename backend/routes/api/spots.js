@@ -561,6 +561,7 @@ router.post('/:spotId/bookings', requireAuth, async(req, res) => {
     })
   }
 
+
   //Create Booking
   const newBooking = await Booking.create({
     spotId,
@@ -569,7 +570,14 @@ router.post('/:spotId/bookings', requireAuth, async(req, res) => {
     endDate
   })
 
-  return res.json(newBooking)
+  const convertStart = newBooking.startDate.toISOString().substring(0,10)
+  const convertEnd = newBooking.startDate.toISOString().substring(0,10)
+
+  const payload = newBooking.toJSON()
+  payload.startDate = convertStart
+  payload.endDate = convertEnd
+
+  return res.json(payload)
 })
 
 

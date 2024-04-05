@@ -153,7 +153,14 @@ router.put('/:bookingId', requireAuth, async(req, res) => {
 
   await booking.save()
 
-  return res.json(booking);
+  const convertStart = booking.startDate.toISOString().substring(0, 10);
+  const convertEnd = booking.endDate.toISOString().substring(0, 10);
+
+  const payload = booking.toJSON()
+  payload.startDate = convertStart
+  payload.endDate = convertEnd
+
+  return res.json(payload);
 
 })
 
