@@ -329,7 +329,8 @@ router.get('/:spotId/reviews', async (req, res) => {
     ]
   })
 
-  res.json(spotReviews)
+  const reviews = ({ Reviews: spotReviews})
+  res.json(reviews)
 })
 
 //Create Review by Spot id
@@ -359,7 +360,7 @@ router.post('/:spotId/reviews', requireAuth, validateAddReview, async(req, res) 
     })
   }
 
-  // if (req.user.id === )
+
   const newReview = await Review.create({
     userId: req.user.id,
     spotId,
