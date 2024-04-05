@@ -2,19 +2,67 @@ const express = require('express')
 
 const { requireAuth } = require('../../utils/auth')
 const { Spot, Review, ReviewImage, SpotImage, User, Booking } = require('../../db/models')
-const { validateAddSpot, validateUpdateSpot, validateAddReview } = require('../../utils/validation');
+const { validateQueryFilter, validateAddSpot, validateUpdateSpot, validateAddReview } = require('../../utils/validation');
+const { Op } = require('sequelize')
 
 const router = express.Router();
 
 
 //Get all spots
-router.get('/', async (req, res) => {
+router.get('/', validateQueryFilter, async (req, res) => {
+
+//Pagination and query filters
+let { page, size, maxLat, minLat, minLng, maxLng, minPrice, maxPrice } = req.query
+
+if(!page) page = 1
+if(page > 10) page = 10;
+if(!size) size = 20;
+if(size > 20) size = 20;
+
+page = parseInt(page)
+size = parseInt(size)
+
+const pagination = {}
+
+if (page >= 1 && size >= 1){
+  pagination.limit = size;
+  pagination.offset = size * (page - 1)
+}
+
+//filters
+const where = {}
+if (maxLat){
+  maxLat = parseInt(maxLat)
+  where.lat = { [Op.lte]: maxLat }
+}
+if (minLat){
+  minLat = parseInt(minLat)
+  where.lat = { [Op.gte]: minLat }
+}
+if (minLng){
+  minLng = parseInt(minLng)
+  where.lng = { [Op.gte]: minLng }
+}
+if (maxLng){
+  maxLng = parseInt(maxLng)
+  where.lng = { [Op.lte]: maxLng }
+}
+if (minPrice){
+  minPrice = parseFloat(minPrice)
+  where.price = { [Op.gte]: minPrice}
+}
+if (maxPrice){
+  maxPrice = parseFloat(maxPrice)
+  where.price = { [Op.lte]: maxPrice}
+}
 
   const spots = await Spot.findAll({
     include: [
       {model: Review},
       {model: SpotImage}
-    ]
+    ],
+    ...pagination,
+    where
   })
 
   let listOfSpots = [];
@@ -50,7 +98,7 @@ router.get('/', async (req, res) => {
 
   // console.log(spots)
 
-  const allSpots = { Spots: listOfSpots}
+  const allSpots = { Spots: listOfSpots, page, size}
   res.json(
     // spots,
     allSpots
