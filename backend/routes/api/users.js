@@ -64,7 +64,7 @@ router.post(
 
 
     if(existingEmail){
-      res.statusCode(500)
+      res.status(500)
       return res.json({
         message: "User already exists",
         errors: {
@@ -74,7 +74,7 @@ router.post(
     }
 
     if(existingUsername){
-      res.statusCode(500)
+      res.status(500)
       return res.json({
         message: "User already exists",
         errors: {
