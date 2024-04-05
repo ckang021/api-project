@@ -3,6 +3,7 @@ const router = express.Router();
 
 const { requireAuth } = require('../../utils/auth')
 const { Booking, Spot, SpotImage } = require('../../db/models')
+const { Op } = require('sequelize')
 
 
 //Get all Bookings of Current User
@@ -62,7 +63,99 @@ router.get('/current', requireAuth, async(req, res) => {
   res.json(allBookings)
 })
 
+//Edit a booking
+router.put('/:bookingId', requireAuth, async(req, res) => {
+  const bookingId = req.params.bookingId
+  const booking = await Booking.findByPk(bookingId)
+  const { startDate, endDate } = req.body;
+  const newStartDate = new Date(startDate)
+  const newEndDate = new Date(endDate)
+  const currDate = new Date()
 
+  if (!booking){
+    res.status(404)
+    return res.json({
+      message: "Booking couldn't be found"
+    })
+  }
+
+  if (req.user.id !== booking.userId){
+    res.status(403)
+    res.json({
+      message: "Forbidden"
+    })
+  }
+
+  if(newEndDate <= currDate || newStartDate <= currDate){
+    res.status(403)
+    res.json({
+      message: "Past bookings can't be modified"
+    })
+  }
+
+  if (newStartDate < currDate){
+    res.status(400)
+    return res.json({
+      message: "Bad Request",
+      errors: {
+        startDate: "startDate cannot be in the past"
+      }
+    })
+  }
+
+  if (newEndDate <= newStartDate){
+    res.status(400)
+    return res.json({
+      message: "Bad Request",
+      errors: {
+        endDate: "endDate cannot be on or before startDate"
+      }
+    })
+  }
+
+  const existingBooking = await Booking.findAll({
+    where: {
+      spotId: booking.spotId,
+      id: {
+        [Op.not]: bookingId
+      }
+    },
+    attributes: ['startDate', 'endDate']
+  });
+
+  let bookErrors = {};
+  existingBooking.forEach(booking => {
+    const start = new Date(booking.startDate)
+    const end = new Date(booking.endDate)
+
+    if (newStartDate === end){
+      bookErrors.startDate = "Start date conflicts with an existing booking"
+    } else if (start <= newStartDate && newStartDate <= end){
+      bookErrors.startDate = "Start date conflicts with an existing booking"
+    } else if (start <= newEndDate && newEndDate <= end){
+      bookErrors.endDate = "End date conflicts with an existing booking"
+    } else if (newStartDate <= start && newEndDate >= end){
+      bookErrors.currentlyExist = "Booking exists between these dates."
+    }
+
+  })
+
+  if(Object.keys(bookErrors).length){
+    res.status(403)
+    return res.json({
+      message: "Sorry, this spot is already booked for the specified dates",
+      errors: bookErrors
+    })
+  }
+
+  if (startDate !== undefined) booking.startDate = startDate;
+  if (endDate !== undefined) booking.endDate = endDate;
+
+  await booking.save()
+
+  return res.json(booking);
+
+})
 
 
 
