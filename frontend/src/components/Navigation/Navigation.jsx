@@ -1,44 +1,41 @@
 import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import ProfileButton from './ProfileButton';
+import ProfileButton from './ProfileButton-bonus';
 import OpenModalButton from '../OpenModalButton';
 import LoginFormModal from '../LoginFormModal';
 import SignupFormModal from '../SignupFormModal';
 import './Navigation.css';
+import logo from "./nav-logo.png"
 
 function Navigation({ isLoaded }) {
   const sessionUser = useSelector(state => state.session.user);
 
   const sessionLinks = sessionUser ?
     (
-      <li>
+     <>
+       <li>
         <ProfileButton user={sessionUser} />
       </li>
+      <li>
+        <NavLink to='/spots/new'>Create New Spot</NavLink>
+      </li>
+     </>
     ) : (
       <>
-        <li>
-          <OpenModalButton
-            buttonText="Log In"
-            modalComponent={<LoginFormModal />}
-          />
-          {/* <NavLink to="/login">Log In</NavLink> */}
-        </li>
-        <li>
-          <OpenModalButton
-            buttonText="Sign Up"
-            modalComponent={<SignupFormModal />}
-          />
-          {/* <NavLink to="/signup">Sign Up</NavLink> */}
-        </li>
+        <ProfileButton />
       </>
     );
 
   return (
     <ul>
-      <li>
-        <NavLink to="/">Home</NavLink>
-      </li>
-      {isLoaded && sessionLinks}
+      <div className='nav-bar'>
+        <NavLink to="/" className='icon-container'>
+          <img className='home-icon' src={logo} />
+        </NavLink>
+        <li className='nav-bar-right'>
+        {isLoaded && sessionLinks}
+        </li>
+      </div>
     </ul>
   );
 }
