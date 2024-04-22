@@ -33,6 +33,9 @@ function Spots () {
             </div>
 
             <div className="spot-details">
+              <div className="city-state-container">
+                {spot.city}, {spot.state}
+              </div>
             </div>
 
           </div>
