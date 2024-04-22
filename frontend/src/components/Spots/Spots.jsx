@@ -36,6 +36,8 @@ function Spots () {
               <div className="city-state-container">
                 {spot.city}, {spot.state}
               </div>
+              <div className="country">{spot.country}</div>
+             <div>${spot.price} per cycle</div>
             </div>
 
           </div>
