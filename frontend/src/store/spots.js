@@ -2,6 +2,7 @@ import { csrfFetch } from "./csrf";
 
 //Action Variables
 const LOAD_SPOTS = "spots/LOAD_SPOTS"
+const SINGLE_SPOT = "spots/SINGLE_SPOTS"
 
 
 //Actions
@@ -9,6 +10,13 @@ const loadSpots = (spots) => {
   return {
     type: LOAD_SPOTS,
     spots
+  }
+}
+
+const singleSpot = (spotId) => {
+  return {
+    type: SINGLE_SPOT,
+    spotId
   }
 }
 

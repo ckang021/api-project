@@ -31,7 +31,7 @@ function SignupFormModal() {
         .then(closeModal)
         .catch(async (res) => {
           const data = await res.json();
-          if (data?.errors) {
+          if (data && data.errors) {
             setErrors(data.errors);
           }
         });
@@ -105,7 +105,7 @@ function SignupFormModal() {
           />
         </label>
         {errors.confirmPassword && <p>{errors.confirmPassword}</p>}
-        <button type="submit">Sign Up</button>
+        <button type="submit" disabled={username.length < 4 || password.length < 6 || !email || !username || !firstName || !lastName || !password || !confirmPassword }>Sign Up</button>
       </form>
     </>
   );
