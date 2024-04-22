@@ -19,7 +19,23 @@ function Spots () {
     <div className="spot-container">
       {spots.map((spot) => (
         <Link to={`/spots/${spot.id}`} className="single-spot-detail" key={spot.id}>
-          {spot.name}
+          <div className="spot">
+
+            <div className="spot-image">
+              <div className="tool-tip">
+                {spot.previewImage ? (
+                  <img src={`${spot.previewImage}`} alt=""/>
+                ) : (
+                  <p>Image Not Available</p>
+                )}
+              <span className="tool-tip-spotname">{spot.name}</span>
+              </div>
+            </div>
+
+            <div className="spot-details">
+            </div>
+
+          </div>
         </Link>
       ))}
     </div>
