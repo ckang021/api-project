@@ -33,15 +33,15 @@ function SoloSpot () {
 
 
       <div className="spot-images-container">
-        <img className="main-image" src={spot.SpotImages[0].url} />
+        <img className="main-image" src={spot.SpotImages[0]?.url} />
         <div className="sub-image-container">
           <div className="sub-image-top">
-            <img className="spot-sub-image" src={spot.SpotImages[1].url} />
-            <img className="spot-sub-image" src={spot.SpotImages[2].url} />
+            <img className="spot-sub-image" src={spot.SpotImages[1]?.url} />
+            <img className="spot-sub-image" src={spot.SpotImages[2]?.url} />
           </div>
           <div className="sub-image-bottom">
-            <img className="spot-sub-image" src={spot.SpotImages[3].url} />
-            <img className="spot-sub-image" src={spot.SpotImages[4].url} />
+            <img className="spot-sub-image" src={spot.SpotImages[3]?.url} />
+            <img className="spot-sub-image" src={spot.SpotImages[4]?.url} />
           </div>
         </div>
       </div>
