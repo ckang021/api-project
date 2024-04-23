@@ -29,11 +29,11 @@ function Navigation({ isLoaded }) {
   return (
     <ul>
       <div className='nav-bar'>
-        <NavLink to="/" className='icon-container'>
+        <NavLink to="/" className='icon-container point'>
           <img className='home-icon' src={logo} />
         </NavLink>
         <li className='nav-bar-right'>
-        {isLoaded && sessionLinks}
+          {isLoaded && sessionLinks}
         </li>
       </div>
     </ul>
