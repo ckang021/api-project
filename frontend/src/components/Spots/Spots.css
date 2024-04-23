@@ -1,0 +1,79 @@
+.spot-tile-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 30px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 40px;
+}
+
+.spot-container {
+  border: 2px black;
+  padding: 15px 15px;
+  border-radius: 10px;
+  box-shadow: 0px 11px 20px gray;
+  transition: box-shadow 1s;
+}
+
+.spot-container:hover {
+  box-shadow: 0px 10px 10px black;
+}
+
+.single-spot-detail{
+  text-decoration: none;
+}
+
+.spot-image {
+  object-fit: cover;
+  height: 245px;
+  width: 100%;
+  border-radius: 20px;
+}
+
+.tool-tip {
+  position: relative;
+}
+
+.tool-tip-spotname {
+  visibility: hidden;
+  width: 120px;
+  text-align: center;
+  border-radius: 6px;
+  position: absolute;
+  background-color: #F5F5DC;
+  color: black;
+  border-radius: 10px;
+  padding: 5px 3px;
+  border: none;
+  top: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100;
+  opacity: 0;
+  transition: opacity 0.4s;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.tool-tip:hover .tool-tip-spotname{
+  visibility: visible;
+  opacity: 1;
+}
+
+.spot-details{
+  color: black;
+}
+
+.city-state-stars-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.star-reviews{
+  display: flex;
+  align-items: center;
+}
+
+.price {
+  padding-top: 20px;
+}

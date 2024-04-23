@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { useEffect, useState } from "react"
 import { allSpots } from "../../store/spots"
 import { Link } from "react-router-dom";
+import './Spots.css'
 
 
 function Spots () {
@@ -16,15 +17,15 @@ function Spots () {
   }, [dispatch])
 
   return (isLoaded &&
-    <div className="spot-container">
+    <div className="spot-tile-container">
       {spots.map((spot) => (
         <Link to={`/spots/${spot.id}`} className="single-spot-detail" key={spot.id}>
-          <div className="spot">
+          <div className="spot-container">
 
-            <div className="spot-image">
+            <div className="spot-image-container">
               <div className="tool-tip">
                 {spot.previewImage ? (
-                  <img src={`${spot.previewImage}`} alt=""/>
+                  <img src={`${spot.previewImage}`} alt="" className="spot-image"/>
                 ) : (
                   <p>Image Not Available</p>
                 )}
@@ -33,11 +34,15 @@ function Spots () {
             </div>
 
             <div className="spot-details">
-              <div className="city-state-container">
+              <div className="city-state-stars-container">
                 {spot.city}, {spot.state}
+                <div className="star-reviews">
+                <i className="fa-solid fa-star"></i>
+                {spot.avgRating !== "Be the first to review this place!" ? Number(spot.avgRating).toFixed(1) : "New"}
+              </div>
               </div>
               <div className="country">{spot.country}</div>
-             <div>${spot.price} per cycle</div>
+              <div className="price">${spot.price} per night</div>
             </div>
 
           </div>

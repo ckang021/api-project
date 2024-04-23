@@ -1,0 +1,33 @@
+.profile {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  gap: 8px;
+  border-radius: 10px;
+  border: solid 0px black;
+  flex-direction: row;
+  width: 70px;
+  height: 40px;
+  background-color: #D7D8F0;
+}
+
+.profile-dropdown {
+  border: 1px solid black;
+  position: absolute;
+  background-color: white;
+  border-radius: 10px;
+  padding: 10px 10px;
+  display: flex;
+  flex-direction: column;
+  margin-top: 50px;
+  z-index: 1;
+}
+
+.hidden {
+  display: none;
+}
+
+.point {
+  cursor: pointer;
+}
