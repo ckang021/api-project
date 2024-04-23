@@ -22,7 +22,7 @@ function SoloSpot () {
     alert("Feature coming soon")
   }
 
-  return (isLoaded && spot ? (
+  return (isLoaded && (
     <div className="single-spot-page">
       <div className="spot-page-header">
         <h1>{spot.name}</h1>
@@ -67,12 +67,10 @@ function SoloSpot () {
       </div>
 
       <div className="reviews-bottom">
-        {/* Spot Reviews go HERE! */}
+        {/* Reviews go HERE! */}
       </div>
 
     </div>
-    ) : (
-      <div>Loading...</div>
     )
   )
 }
