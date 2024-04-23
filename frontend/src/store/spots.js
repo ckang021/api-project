@@ -2,7 +2,7 @@ import { csrfFetch } from "./csrf";
 
 //Action Variables
 const LOAD_SPOTS = "spots/LOAD_SPOTS"
-// const SINGLE_SPOT = "spots/SINGLE_SPOTS"
+const SINGLE_SPOT = "spots/SINGLE_SPOTS"
 
 
 //Actions
@@ -13,12 +13,12 @@ const loadSpots = (spots) => {
   }
 }
 
-// const singleSpot = (spotId) => {
-//   return {
-//     type: SINGLE_SPOT,
-//     spotId
-//   }
-// }
+const singleSpot = (spotId) => {
+  return {
+    type: SINGLE_SPOT,
+    spotId
+  }
+}
 
 
 
@@ -34,6 +34,17 @@ export const allSpots = () => async (dispatch) => {
   }
 }
 
+export const soloSpot = (spotId) => async (dispatch) => {
+  const res = await csrfFetch(`/api/spots/${spotId}`);
+
+  if (res.ok){
+    let spot = await res.json()
+    dispatch(singleSpot(spot))
+  }
+
+  return res
+}
+
 
 
 //Reducer
@@ -47,6 +58,11 @@ const spotReducer = (state = initState, action) => {
       const allSpots = {}
       action.spots.forEach(spot => allSpots[spot.id] = { ...spot });
       newState.allSpots = allSpots
+      return newState
+    } case SINGLE_SPOT: {
+      const newState = { ...state };
+      const singleSpot = { ...action.spotId };
+      newState.singleSpot = singleSpot;
       return newState
     }
     default:
