@@ -8,7 +8,9 @@ import './Spots.css'
 function Spots () {
   const dispatch = useDispatch()
   const convertSpots = useSelector((state) => state.spots);
-  const spots = Object.values(convertSpots.allSpots)
+  const spots = Object.values(convertSpots)
+
+  // console.log("SPOTS ===>", convertSpots)
   const [isLoaded, setIsLoaded] = useState(false)
 
   useEffect(() => {

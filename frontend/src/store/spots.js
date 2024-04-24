@@ -3,6 +3,8 @@ import { csrfFetch } from "./csrf";
 //Action Variables
 const LOAD_SPOTS = "spots/LOAD_SPOTS"
 const SINGLE_SPOT = "spots/SINGLE_SPOTS"
+const CREATE_SPOT = "spot/CREATE_SPOT"
+const NEW_IMAGE = "spot/NEW_IMAGE"
 
 
 //Actions
@@ -19,6 +21,21 @@ const singleSpot = (spotId) => {
     spotId
   }
 }
+
+export const createSpot = (spot) => {
+  return {
+    type: CREATE_SPOT,
+    spot
+  }
+}
+
+export const newImage = (image) => {
+  return {
+    type: NEW_IMAGE,
+    image
+  }
+}
+
 
 
 
@@ -45,25 +62,60 @@ export const soloSpot = (spotId) => async (dispatch) => {
   return res
 }
 
+export const createNewSpot = (newSpot) => async (dispatch) => {
+  const res = await csrfFetch('/api/spots', {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(newSpot)
+  })
+
+ if(res.ok){
+  const newSpot = await res.json()
+  dispatch(createSpot(newSpot))
+  return res
+ } else {
+  const errors = res.json()
+  return errors
+ }
+}
+
+export const addImageSpot = (spotId, imgDetail) => async (dispatch) => {
+  const res = await csrfFetch(`/api/spots/${spotId}/images`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(imgDetail)
+  });
+
+  if(res.ok){
+    const newImg = await res.json()
+    dispatch(newImage(newImg))
+    return newImg
+  } else {
+    const errors = res.json()
+    return errors
+  }
+}
+
 
 
 //Reducer
 
-const initState = { allSpots: {}, singleSpot: {}};
+const initState = {};
 
 const spotReducer = (state = initState, action) => {
   switch(action.type){
     case LOAD_SPOTS: {
-      const newState = { ...state };
-      const allSpots = {}
-      action.spots.forEach(spot => allSpots[spot.id] = { ...spot });
-      newState.allSpots = allSpots
-      return newState
+      return {...state, ...action.spots}
     } case SINGLE_SPOT: {
-      const newState = { ...state };
-      const singleSpot = { ...action.spotId };
-      newState.singleSpot = singleSpot;
-      return newState
+      return { ...state, ...action.spotId}
+    } case CREATE_SPOT: {
+      return { ...state, [action.spot.id]: action.spot}
+    } case NEW_IMAGE: {
+      return { ...state, ...action.image}
     }
     default:
       return state;
