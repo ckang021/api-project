@@ -10,7 +10,7 @@ function Spots () {
   const convertSpots = useSelector((state) => state.spots);
   const spots = Object.values(convertSpots.allSpots)
 
-  console.log("SPOTS ===>", spots)
+  // console.log("SPOTS ===>", spots)
   const [isLoaded, setIsLoaded] = useState(false)
 
   useEffect(() => {

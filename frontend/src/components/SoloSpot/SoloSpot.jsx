@@ -10,7 +10,7 @@ function SoloSpot () {
   const [isLoaded, setIsLoaded] = useState(false)
   const spot = useSelector(state => state.spots.oneSpot.Spots?.[0]);
 
-  console.log("SOLO SPOT ===> ", spot)
+  // console.log("SOLO SPOT ===> ", spot)
 
 
   useEffect(() => {
