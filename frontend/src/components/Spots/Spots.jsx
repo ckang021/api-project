@@ -8,9 +8,9 @@ import './Spots.css'
 function Spots () {
   const dispatch = useDispatch()
   const convertSpots = useSelector((state) => state.spots);
-  const spots = Object.values(convertSpots)
+  const spots = Object.values(convertSpots.allSpots)
 
-  // console.log("SPOTS ===>", convertSpots)
+  console.log("SPOTS ===>", spots)
   const [isLoaded, setIsLoaded] = useState(false)
 
   useEffect(() => {
@@ -20,7 +20,7 @@ function Spots () {
 
   return (isLoaded &&
     <div className="spot-tile-container">
-      {spots.map((spot) => (
+      {!spots.Owner && spots.map((spot) => (
         <Link to={`/spots/${spot.id}`} className="single-spot-detail" key={spot.id}>
           <div className="spot-container">
 
