@@ -62,7 +62,7 @@ export const soloSpot = (spotId) => async (dispatch) => {
   return res
 }
 
-export const createNewSpot = (newSpot) => async (dispatch) => {
+export const createNewSpot = (newSpot, images) => async (dispatch) => {
   const res = await csrfFetch('/api/spots', {
     method: "POST",
     headers: {
@@ -71,34 +71,37 @@ export const createNewSpot = (newSpot) => async (dispatch) => {
     body: JSON.stringify(newSpot)
   })
 
- if(res.ok){
-  const newSpot = await res.json()
-  dispatch(createSpot(newSpot))
-  return res
- } else {
-  const errors = res.json()
-  return errors
- }
-}
+  const spot = await res.json()
 
-export const addImageSpot = (spotId, imgDetail) => async (dispatch) => {
-  const res = await csrfFetch(`/api/spots/${spotId}/images`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(imgDetail)
-  });
-
-  if(res.ok){
-    const newImg = await res.json()
-    dispatch(newImage(newImg))
-    return newImg
-  } else {
-    const errors = res.json()
-    return errors
+  const addImages = await Promise.all(Object.values(images).map(async (url) => {
+    const res = await csrfFetch(`/api/spots/${spot.id}/images`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({url, preview: true})
+    });
+    return res.json();
+  }))
+  dispatch(createSpot(newSpot, addImages))
+  return spot
   }
-}
+
+// export const addImageSpot = (spotId, imgDetail) => async (dispatch) => {
+//   const res = await csrfFetch(`/api/spots/${spotId}/images`, {
+//     method: "POST",
+//     headers: {
+//       "Content-Type": "application/json",
+//     },
+//     body: JSON.stringify(imgDetail)
+//   });
+
+//   if(res.ok){
+//     const newImg = await res.json()
+//     dispatch(newImage(newImg))
+//     return newImg
+//   }
+// }
 
 
 
@@ -113,7 +116,7 @@ const spotReducer = (state = initState, action) => {
     } case SINGLE_SPOT: {
       return { ...state, ...action.spotId}
     } case CREATE_SPOT: {
-      return { ...state, [action.spot.id]: action.spot}
+      return { ...state, [action.spot.id]: action.spot };
     } case NEW_IMAGE: {
       return { ...state, ...action.image}
     }

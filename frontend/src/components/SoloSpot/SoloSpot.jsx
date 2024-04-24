@@ -33,7 +33,7 @@ function SoloSpot () {
 
 
       <div className="spot-images-container">
-        <img className="main-image" src={spot.SpotImages[0].url} />
+        <img className="main-image" src={spot.SpotImages[0]?.url} />
         <div className="sub-image-container">
           <div className="sub-image-top">
             <img className="spot-sub-image" src={spot.SpotImages[1].url} />
