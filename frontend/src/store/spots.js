@@ -73,13 +73,14 @@ export const createNewSpot = (newSpot, images) => async (dispatch) => {
 
   const spot = await res.json()
 
-  const addImages = await Promise.all(Object.values(images).map(async (url) => {
+  const addImages = await Promise.all(Object.entries(images).map(async ([key, url]) => {
+    const preview = key === 'imgPreview' ? true : false
     const res = await csrfFetch(`/api/spots/${spot.id}/images`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({url, preview: true})
+      body: JSON.stringify({url, preview: preview})
     });
     return res.json();
   }))
@@ -107,14 +108,14 @@ export const createNewSpot = (newSpot, images) => async (dispatch) => {
 
 //Reducer
 
-const initState = {};
+const initState = {allSpots: {}, oneSpot: {}};
 
 const spotReducer = (state = initState, action) => {
   switch(action.type){
     case LOAD_SPOTS: {
-      return {...state, ...action.spots}
+      return {...state, allSpots: action.spots}
     } case SINGLE_SPOT: {
-      return { ...state, ...action.spotId}
+      return { ...state, oneSpot: action.spotId}
     } case CREATE_SPOT: {
       return { ...state, [action.spot.id]: action.spot };
     } case NEW_IMAGE: {

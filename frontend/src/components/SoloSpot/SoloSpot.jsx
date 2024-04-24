@@ -8,7 +8,9 @@ function SoloSpot () {
   const { spotId } = useParams()
   const dispatch = useDispatch()
   const [isLoaded, setIsLoaded] = useState(false)
-  const spot = useSelector(state => state.spots.Spots?.[0])
+  const spot = useSelector(state => state.spots.oneSpot.Spots?.[0]);
+
+  console.log("SOLO SPOT ===> ", spot)
 
 
   useEffect(() => {
