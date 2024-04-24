@@ -20,7 +20,7 @@ function Spots () {
 
   return (isLoaded &&
     <div className="spot-tile-container">
-      {!spots.Owner && spots.map((spot) => (
+      {spots.map((spot) => (
         <Link to={`/spots/${spot.id}`} className="single-spot-detail" key={spot.id}>
           <div className="spot-container">
 

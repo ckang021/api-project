@@ -1,21 +1,21 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { createNewSpot } from '../../store/spots'
 import { useNavigate } from 'react-router-dom';
 import "./SpotForm.css"
+import { createNewSpot } from '../../store/spots';
 
-function SpotForm ({spot, formType}) {
+function SpotForm ({formType}) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [country, setCountry] = useState(spot?.country);
-  const [address, setAddress ] = useState(spot?.address);
-  const [city, setCity] = useState(spot?.city);
-  const [state, setState] = useState(spot?.state);
-  // const [lat, setLat] = useState(spot?.lat);
-  // const [lng, setLng] = useState(spot?.lng)
-  const [description, setDescription] = useState(spot?.description);
-  const [name, setName] = useState(spot?.name)
-  const [price, setPrice] = useState(spot?.price)
+  const [country, setCountry] = useState("");
+  const [address, setAddress ] = useState("");
+  const [city, setCity] = useState("");
+  const [state, setState] = useState("");
+  // const [lat, setLat] = useState(1);
+  // const [lng, setLng] = useState(1)
+  const [description, setDescription] = useState("");
+  const [name, setName] = useState("")
+  const [price, setPrice] = useState("")
   const [imgPreview, setImgPreview] = useState('')
   const [img1, setImg1] = useState('')
   const [img2, setImg2] = useState('')
@@ -62,13 +62,16 @@ function SpotForm ({spot, formType}) {
     setErrors({})
 
     if(errorCheck()){
-      spot = { ...spot, country, address, city, state, description, name, price};
-      if (formType === "Create Spot"){
-        const newSpot = await dispatch(createNewSpot(spot, {imgPreview, img1, img2, img3, img4}))
-        navigate(`/spots/${newSpot.id}`)
-      } else {
-        // edit a spot
+      const newSpot = { country, address, city, state, lat: 1, lng: 1, description, name, price: Number(price)};
+
+      const images = [imgPreview, img1, img2, img3, img4]
+
+      for(let i = 0; i < images.length; i++){
+        if(!images[i]) images[i] = "https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg"
       }
+
+      const createSpot = await dispatch(createNewSpot(newSpot, images))
+      navigate(`/spots/${createSpot.id}`)
     }
   }
 

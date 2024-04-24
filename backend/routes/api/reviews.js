@@ -39,14 +39,20 @@ router.get('/current', requireAuth, async(req, res) => {
     })
 
     listOfReviews.forEach(review => {
-      const url = review.Spot.SpotImages[0].url
-
-      // console.log(url)
-      if (review.Spot.SpotImages[0]){
+      // const url = review.Spot.SpotImages[0].url
+      const spotImages = review.Spot.SpotImages
+      if(spotImages && spotImages.length > 0){
+        const url = spotImages[0]
         review.Spot.previewImage = url
       } else {
         review.Spot.previewImage = 'No Image Preview...'
       }
+      // console.log(url)
+      // if (review.Spot.SpotImages[0]){
+      //   review.Spot.previewImage = url
+      // } else {
+      //   review.Spot.previewImage = 'No Image Preview...'
+      // }
 
       delete review.Spot.SpotImages
     })
