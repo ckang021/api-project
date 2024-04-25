@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect } from 'react'
 import { soloSpot } from "../../store/spots";
 import './SoloSpot.css'
+import ReviewStar from "./ReviewStar";
+import SpotReviews from "../SpotReviews/SpotReviews";
 
 function SoloSpot () {
   const { spotId } = useParams()
@@ -59,17 +61,18 @@ function SoloSpot () {
             <span>${spot.price} per night</span>
           </p>
           <div className="spot-reviews">
-            <i className="fa-solid fa-star"></i>
-            {spot?.avgStarRating !== "Be the first to review this place!" ? Number(spot?.avgStarRating).toFixed(1) : "New"}
-            <p>{spot?.numReviews} Reviews</p>
-            {/* {ADD SPOT REVIEWS HERE} */}
+            <ReviewStar avgStars={spot.avgStarRating} numReviews={spot.numReviews}/>
           </div>
           <button className="reserve-button" onClick={reserveComingSoon}>Reserve</button>
         </div>
       </div>
 
-      <div className="reviews-bottom">
-        {/* Reviews go HERE! */}
+      <div className="reviews-star-bottom">
+        <ReviewStar avgStars={spot.avgStarRating} numReviews={spot.numReviews}/>
+      </div>
+
+      <div className="all-reviews">
+        <SpotReviews spotId={spotId} ownerId={spot.ownerId} reviewLength={spot.numReviews}/>
       </div>
 
     </div>

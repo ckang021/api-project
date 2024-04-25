@@ -17,8 +17,6 @@ function EditSpotForm(){
     dispatch(soloSpot(spotId)).then(() => setIsLoaded(true))
   }, [dispatch, spotId])
 
-  console.log("AM I HITTING THIS??")
-
   return (
     <div>
       <h1>Update your Spot</h1>
