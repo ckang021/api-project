@@ -2,7 +2,9 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux"
 import { Link } from "react-router-dom";
 import { userSpots } from "../../store/spots";
+import OpenModalButton from "../OpenModalButton/OpenModalButton";
 import '../Spots/Spots.css'
+import DeleteButton from "./DeleteButton";
 
 function ManageSpot(){
   const [isLoaded, setIsLoaded] = useState(false)
@@ -63,11 +65,13 @@ function ManageSpot(){
 
           <div className="buttons">
               <Link to={`/spots/${spot.id}/edit`} className="spot-details">
-                <button>Update</button>
+                <button className="manage-spot-buttons">Update</button>
               </Link>
-              <>
-                  {/* Delete Button */}
-              </>
+              <OpenModalButton
+                className="manage-spot-buttons"
+                buttonText="Delete"
+                modalComponent={<DeleteButton spotId={spot.id} />}
+              />
           </div>
           </>
         ))}

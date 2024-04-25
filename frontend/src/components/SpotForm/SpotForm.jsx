@@ -57,12 +57,11 @@ function SpotForm ({spot, formType}) {
 
   const handleSubmit = async(e) => {
     e.preventDefault();
-    // console.log("HELLO?")
     setSubmitted(true)
     setErrors({})
 
     if(errorCheck()){
-      // console.log("HELLO?")
+
       const newSpot = { ...spot, country, address, city, state, lat: 1, lng: 1, description, name, price: Number(price)};
       if (formType === "Create Spot"){
 
@@ -75,9 +74,8 @@ function SpotForm ({spot, formType}) {
         const createSpot = await dispatch(createNewSpot(newSpot, images))
         navigate(`/spots/${createSpot.id}`)
       }
-    //   console.log("IS IT HITTING THIS??")
+
       if (formType === "Update Spot"){
-        console.log("IS IT HITTING THIS??")
         const updatedSpot = await dispatch(updateSpot(newSpot, spot.id))
         navigate(`/spots/${updatedSpot.id}`)
       }
