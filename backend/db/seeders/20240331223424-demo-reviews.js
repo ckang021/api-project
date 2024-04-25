@@ -38,7 +38,7 @@ module.exports = {
       stars: 1
     },
     {
-      userId: 1,
+      userId: 5,
       spotId: 2,
       review: "Absolutely stunning virtual environment! The attention to detail is incredible.",
       stars: 5
@@ -62,7 +62,7 @@ module.exports = {
       stars: 4
     },
     {
-      userId: 2,
+      userId: 3,
       spotId: 4,
       review: "The room design is impressive, but the interface could be more user-friendly.",
       stars: 3

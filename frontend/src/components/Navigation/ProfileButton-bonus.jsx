@@ -47,12 +47,6 @@ function ProfileButton({ user }) {
     closeMenu()
   }
 
-  const manageReviews = (e) => {
-    e.preventDefault()
-    navigate('/reviews/current')
-    closeMenu
-  }
-
   const ulClassName = "profile-dropdown" + (showMenu ? "" : " hidden");
 
   return (
@@ -68,9 +62,6 @@ function ProfileButton({ user }) {
             <li>{user.email}</li>
             <li>
               <button onClick={manageSpots}>Manage Spots</button>
-            </li>
-            <li>
-              <button onClick={manageReviews}>Manage Reviews</button>
             </li>
             <li>
               <button onClick={logout}>Log Out</button>

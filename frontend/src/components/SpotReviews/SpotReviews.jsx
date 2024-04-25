@@ -2,6 +2,8 @@ import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { getReviews } from "../../store/reviews"
 import OpenModalButton from "../OpenModalButton/OpenModalButton"
+import AddReviewModal from "./AddReviewModal"
+import DeleteReviewModal from "./DeleteReviewModal"
 
 
 function SpotReviews({ spotId, ownerId, reviewLength }){
@@ -16,12 +18,12 @@ function SpotReviews({ spotId, ownerId, reviewLength }){
 
   return (
     <div className="review-container">
-      {sessionUser && sessionUser?.id !== ownerId &&
+      {sessionUser && sessionUser?.id !== ownerId && //If the current user isn't the owner and didn't post a review
       !reviews.find((review) => review.userId === sessionUser?.id) && (
         <OpenModalButton
           className="button-review"
           buttonText="Post a Review"
-          // modalComponent={}
+          modalComponent={<AddReviewModal spotId={spotId} />}
         />
       )}
 
@@ -45,6 +47,14 @@ function SpotReviews({ spotId, ownerId, reviewLength }){
               <div className="review-text">
                 <p>{review.review}</p>
               </div>
+
+              {sessionUser && review.userId === sessionUser?.id && (
+                <OpenModalButton
+                  className="button-review"
+                  buttonText="Delete a Review"
+                  modalComponent={<DeleteReviewModal reviewId={review.id} spotId={spotId}/>}
+                />
+              )}
             </div>
           ))}
         </>
