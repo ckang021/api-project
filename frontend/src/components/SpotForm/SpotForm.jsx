@@ -2,20 +2,20 @@ import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import "./SpotForm.css"
-import { createNewSpot } from '../../store/spots';
+import { createNewSpot, updateSpot } from '../../store/spots';
 
-function SpotForm ({formType}) {
+function SpotForm ({spot, formType}) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [country, setCountry] = useState("");
-  const [address, setAddress ] = useState("");
-  const [city, setCity] = useState("");
-  const [state, setState] = useState("");
+  const [country, setCountry] = useState(spot?.country);
+  const [address, setAddress ] = useState(spot?.address);
+  const [city, setCity] = useState(spot?.city);
+  const [state, setState] = useState(spot?.state);
   // const [lat, setLat] = useState(1);
   // const [lng, setLng] = useState(1)
-  const [description, setDescription] = useState("");
-  const [name, setName] = useState("")
-  const [price, setPrice] = useState("")
+  const [description, setDescription] = useState(spot?.description);
+  const [name, setName] = useState(spot?.name)
+  const [price, setPrice] = useState(spot?.price)
   const [imgPreview, setImgPreview] = useState('')
   const [img1, setImg1] = useState('')
   const [img2, setImg2] = useState('')
@@ -37,10 +37,9 @@ function SpotForm ({formType}) {
     if(description.length < 30) errors.description = "Description needs a minimum of 30 characters"
     if(!name) errors.title = "Name is required"
     if(!price) errors.price = "Price is required"
-    if(!imgPreview) errors.imgPreview = "Preview image is required"
 
     if(formType === "Create Spot"){
-      if(!imgPreview) errors.imgPreviewMissing = "Preview image is required"
+      if(!imgPreview) errors.imgPreview = "Preview image is required"
       if(imgPreview.length > 0 && !imageCheck(imgPreview)) errors.imgPreviewInvalid = "Image URL must end in .png, .jpg, or .jpeg"
       if(img1.length > 0 && !imageCheck(img1)) errors.img1 = "Image URL must end in .png, .jpg, or .jpeg"
       if(img2.length > 0 && !imageCheck(img2)) errors.img2 = "Image URL must end in .png, .jpg, or .jpeg"
@@ -58,20 +57,30 @@ function SpotForm ({formType}) {
 
   const handleSubmit = async(e) => {
     e.preventDefault();
+    // console.log("HELLO?")
     setSubmitted(true)
     setErrors({})
 
     if(errorCheck()){
-      const newSpot = { country, address, city, state, lat: 1, lng: 1, description, name, price: Number(price)};
+      // console.log("HELLO?")
+      const newSpot = { ...spot, country, address, city, state, lat: 1, lng: 1, description, name, price: Number(price)};
+      if (formType === "Create Spot"){
 
-      const images = [imgPreview, img1, img2, img3, img4]
+        const images = [imgPreview, img1, img2, img3, img4]
 
-      for(let i = 0; i < images.length; i++){
-        if(!images[i]) images[i] = "https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg"
+        for(let i = 0; i < images.length; i++){
+          if(!images[i]) images[i] = "https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg"
+        }
+
+        const createSpot = await dispatch(createNewSpot(newSpot, images))
+        navigate(`/spots/${createSpot.id}`)
       }
-
-      const createSpot = await dispatch(createNewSpot(newSpot, images))
-      navigate(`/spots/${createSpot.id}`)
+    //   console.log("IS IT HITTING THIS??")
+      if (formType === "Update Spot"){
+        console.log("IS IT HITTING THIS??")
+        const updatedSpot = await dispatch(updateSpot(newSpot, spot.id))
+        navigate(`/spots/${updatedSpot.id}`)
+      }
     }
   }
 
