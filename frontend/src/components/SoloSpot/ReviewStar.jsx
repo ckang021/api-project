@@ -1,3 +1,5 @@
+import './ReviewStar.css'
+
 function ReviewStar ({ avgStars, numReviews}) {
   const starCheck = avgStars !== "Be the first to review this place!" ? Number(avgStars).toFixed(1) : "New"
   const oneReviewCheck = numReviews === 1 ? "Review" : "Reviews"

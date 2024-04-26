@@ -30,13 +30,13 @@ function SpotForm ({spot, formType}) {
 
   const errorCheck = () => {
     const errors = {};
-    if(!country) errors.country = "Country is required"
-    if(!address) errors.address = "Address is required"
-    if(!city) errors.city = "City is required"
-    if(!state) errors.state = "State is required"
+    if(!country || country.length < 5 || country.length > 50) errors.country = "Country is required and be greater than 5 characters and less than 50 characters."
+    if(!address || address.length < 5 || address.length > 255) errors.address = "Address is required and be greater than 5 characters and less than 255 characters"
+    if(!city || city.length < 5 || city.length > 50) errors.city = "City is required and be greater than 5 characters and less than 50 characters."
+    if(!state || state.length < 5 || state.length > 50) errors.state = "State is required and be greater than 5 characters and less than 50 characters."
     if(description.length < 30) errors.description = "Description needs a minimum of 30 characters"
-    if(!name) errors.title = "Name is required"
-    if(!price) errors.price = "Price is required"
+    if(!name || name.length < 5 || name.length > 50) errors.title = "Name is required and be greater than 5 characters and less than 50 characters."
+    if(!price || price < 0 || !Number(price)) errors.price = "Price is required and must have a minimum of $0. Must be a number."
 
     if(formType === "Create Spot"){
       if(!imgPreview) errors.imgPreview = "Preview image is required"

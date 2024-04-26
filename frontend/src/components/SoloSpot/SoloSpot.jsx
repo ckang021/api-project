@@ -30,13 +30,13 @@ function SoloSpot () {
     <div className="single-spot-page">
       <div className="spot-page-header">
         <h1>{spot.name}</h1>
-        <p>
+        <p className="sub-header">
           {spot.city}, {spot.state}, {spot.country}
         </p>
       </div>
 
 
-      <div className="spot-images-container">
+      <div className="spot-images-box">
         <img className="main-image" src={spot.SpotImages[0]?.url} />
         <div className="sub-image-container">
           <div className="sub-image-top">
@@ -52,18 +52,22 @@ function SoloSpot () {
 
       <div className="spot-detail-info">
         <div className="spot-description">
-          <h3>Hosted by {spot.Owner.firstName} {spot.Owner.lastName}</h3>
+          <h2>Hosted by {spot.Owner.firstName} {spot.Owner.lastName}</h2>
           <p>{spot.description}</p>
         </div>
 
         <div className="spot-reserve-box">
+         <div className="top-stats-box">
           <p>
-            <span>${spot.price} per night</span>
+            <span className="spot-price">${spot.price}</span> per night
           </p>
           <div className="spot-reviews">
             <ReviewStar avgStars={spot.avgStarRating} numReviews={spot.numReviews}/>
           </div>
-          <button className="reserve-button" onClick={reserveComingSoon}>Reserve</button>
+         </div>
+          <button className="reserve-button point" onClick={reserveComingSoon}>
+            Reserve
+          </button>
         </div>
       </div>
 

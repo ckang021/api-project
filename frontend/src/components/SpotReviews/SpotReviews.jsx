@@ -4,6 +4,7 @@ import { getReviews } from "../../store/reviews"
 import OpenModalButton from "../OpenModalButton/OpenModalButton"
 import AddReviewModal from "./AddReviewModal"
 import DeleteReviewModal from "./DeleteReviewModal"
+import "./SpotReviews.css"
 
 
 function SpotReviews({ spotId, ownerId, reviewLength }){
@@ -38,7 +39,7 @@ function SpotReviews({ spotId, ownerId, reviewLength }){
               <h3>
                 {review.User?.firstName}
               </h3>
-              <p>
+              <p className="review-date">
                 {new Date(review.createdAt).toLocaleString("default", {
                 month: "long",
                 year: "numeric"

@@ -1,0 +1,27 @@
+.review-container {
+  display: flex;
+  flex-direction: column;
+  padding: 30px 0px;
+  gap: 20px;
+}
+
+.review-section-container {
+  display: flex;
+  flex-direction: column;
+  border: 2px none black;
+  padding: 30px 30px;
+  border-radius: 8px;
+  gap: 10px;
+  box-shadow: 0px 3px 20px lightgray;
+  transition: box-shadow 0.3s ease;
+  background-color: white;
+  width: 350px;
+}
+
+.review-section-container:hover {
+  box-shadow: 0px 8px 10px gray;
+}
+
+.review-date{
+  text-decoration: underline;
+}
