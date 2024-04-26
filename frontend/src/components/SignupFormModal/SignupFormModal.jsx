@@ -42,9 +42,9 @@ function SignupFormModal() {
   };
 
   return (
-    <>
+    <div className='sign-up-container'>
       <h1>Sign Up</h1>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className='form-container'>
         <label>
           Email
           <input
@@ -54,7 +54,7 @@ function SignupFormModal() {
             required
           />
         </label>
-        {errors.email && <p>{errors.email}</p>}
+        <div className='errors'>{errors.email && <p>{errors.email}</p>}</div>
         <label>
           Username
           <input
@@ -64,7 +64,7 @@ function SignupFormModal() {
             required
           />
         </label>
-        {errors.username && <p>{errors.username}</p>}
+        <div className='errors'>{errors.username && <p>{errors.username}</p>}</div>
         <label>
           First Name
           <input
@@ -74,7 +74,7 @@ function SignupFormModal() {
             required
           />
         </label>
-        {errors.firstName && <p>{errors.firstName}</p>}
+        <div className='errors'>{errors.firstName && <p>{errors.firstName}</p>}</div>
         <label>
           Last Name
           <input
@@ -84,7 +84,7 @@ function SignupFormModal() {
             required
           />
         </label>
-        {errors.lastName && <p>{errors.lastName}</p>}
+        <div className='errors'>{errors.lastName && <p>{errors.lastName}</p>}</div>
         <label>
           Password
           <input
@@ -94,7 +94,7 @@ function SignupFormModal() {
             required
           />
         </label>
-        {errors.password && <p>{errors.password}</p>}
+        <div className='errors'>{errors.password && <p>{errors.password}</p>}</div>
         <label>
           Confirm Password
           <input
@@ -104,10 +104,10 @@ function SignupFormModal() {
             required
           />
         </label>
-        {errors.confirmPassword && <p>{errors.confirmPassword}</p>}
-        <button type="submit" disabled={username.length < 4 || password.length < 6 || !email || !username || !firstName || !lastName || !password || !confirmPassword }>Sign Up</button>
+        <div className='errors'>{errors.confirmPassword && <p>{errors.confirmPassword}</p>}</div>
+        <button type="submit" disabled={username.length < 4 || password.length < 6 || !email || !username || !firstName || !lastName || !password || !confirmPassword } className='sign-up-button'>Sign Up</button>
       </form>
-    </>
+    </div>
   );
 }
 

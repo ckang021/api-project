@@ -46,7 +46,9 @@ function LoginFormPage() {
             required
           />
         </label>
-        {errors.credential && <p>{errors.credential}</p>}
+        <div className='login-errors'>
+          {errors.credential && <p>{errors.credential}</p>}
+        </div>
         <button type="submit">Log In</button>
       </form>
     </>

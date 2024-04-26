@@ -57,6 +57,12 @@
 .tool-tip:hover .tool-tip-spotname{
   visibility: visible;
   opacity: 1;
+  transition: background-color 0.3s ease;
+}
+
+.tool-tip-spotname:hover{
+  background-color: #EA7E73;
+  color: white;
 }
 
 .spot-details{
