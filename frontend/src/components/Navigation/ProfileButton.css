@@ -8,20 +8,35 @@
   border: solid 0px black;
   flex-direction: row;
   width: 70px;
-  height: 40px;
+  height: 50px;
   background-color: #D7D8F0;
 }
 
 .profile-dropdown {
-  border: 1px solid black;
   position: absolute;
   background-color: white;
   border-radius: 10px;
-  padding: 10px 10px;
+  padding: 10px 30px;
+  z-index: 1;
+  right: 30px;
+  font-size: 15px;
+}
+
+.logged-in-box{
   display: flex;
   flex-direction: column;
-  margin-top: 50px;
-  z-index: 1;
+  align-items: center;
+  gap: 7px;
+}
+
+.login-signup{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.username{
+  font-weight: bold;
 }
 
 .hidden {
@@ -30,4 +45,32 @@
 
 .point {
   cursor: pointer;
+}
+
+.top-login {
+  border-bottom: 2px solid black;
+  padding-bottom: 10px;
+}
+
+.middle-login {
+  border-bottom: 2px solid black;
+  padding-top: 7px;
+  padding-bottom: 14px;
+}
+
+.bottom-login {
+  padding-top: 8px;
+}
+
+.button-profile {
+  border: none;
+  padding: 10px 10px;
+  border-radius: 15px;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.button-profile:hover {
+  color: white;
+  background-color: #fcaa9a;
 }

@@ -34,10 +34,15 @@ function LoginFormModal() {
   }
 
   return (
-    <>
+    <div className='login-modal-container'>
       <h1>Log In</h1>
-      <form onSubmit={handleSubmit}>
-        <label>
+
+      <div className='login-modal-errors'>
+        {errors.credential && <p>{errors.credential}</p>}
+      </div>
+
+      <form onSubmit={handleSubmit} className='login-form-container'>
+        <label className='login-username'>
           Username or Email
           <input
             type="text"
@@ -46,7 +51,7 @@ function LoginFormModal() {
             required
           />
         </label>
-        <label>
+        <label className='login-password'>
           Password
           <input
             type="password"
@@ -55,11 +60,11 @@ function LoginFormModal() {
             required
           />
         </label>
-        {errors.credential && <p>{errors.credential}</p>}
-        <button type="submit" disabled={(credential.length < 4 || (password.length < 6))}>Log In</button>
-        <button onClick={demoUser}>Demo User</button>
+
+        <button type="submit" disabled={(credential.length < 4 || (password.length < 6))} className='login-button point'>Log In</button>
+        <button onClick={demoUser} className='demo-button point'>Demo User</button>
       </form>
-    </>
+    </div>
   );
 }
 

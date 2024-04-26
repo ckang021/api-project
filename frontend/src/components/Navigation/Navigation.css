@@ -22,11 +22,20 @@ li {
   flex-direction: row-reverse;
   justify-content: space-between;
   list-style-type: none;
+  align-items: center;
+}
 
+.new-spot{
+  text-decoration: none;
+  padding: 20px 50px;
+  color: black;
+  font-weight: bold;
 }
 
 .home-icon{
-  width: 150px;
-  height: 150px;
-  margin-left: 20px;
+  width: 200px;
+  height: 200px;
+  display: flex;
+  align-items: center;
+  margin-left: 10px;
 }

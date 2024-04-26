@@ -1,0 +1,32 @@
+.sign-up-container {
+  display: flex;
+  flex-direction: column;
+  padding: 40px 40px;
+  gap: 10px;
+  align-items: center;
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.errors {
+  color: red;
+}
+
+.sign-up-button {
+  border: none;
+  padding: 10px 20px;
+  border-radius: 15px;
+  font-weight: bold;
+  font-size: 15px;
+  transition: background-color 0.3s ease;
+}
+
+.sign-up-button:hover {
+  color: white;
+  background-color: #fcaa9a;
+}

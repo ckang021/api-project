@@ -52,36 +52,38 @@ function ProfileButton({ user }) {
   return (
     <>
       <button onClick={toggleMenu} className='profile point'>
-        <i className='fa fa-bars' />
-        <i className="fas fa-user-circle" />
+        <i className='fa fa-bars bars' />
+        <i className="fas fa-user-circle humanoid" />
       </button>
       <ul className={ulClassName} ref={ulRef}>
         {user ? (
-          <>
-            <li>Hello {user.username}</li>
-            <li>{user.email}</li>
-            <li>
-              <button onClick={manageSpots}>Manage Spots</button>
+          <div className='logged-in-box'>
+            <div className='top-login'>
+              <li>Hello, <span className='username'>{user.username}</span>!</li>
+              <li>{user.email}</li>
+            </div>
+            <li className='middle-login'>
+              <button onClick={manageSpots} className='button-profile point'>Manage Spots</button>
             </li>
-            <li>
-              <button onClick={logout}>Log Out</button>
+            <li className='bottom-login'>
+              <button onClick={logout} className='button-profile point'>Log Out</button>
             </li>
-          </>
+          </div>
         ) : (
-          <>
+          <div className='login-signup'>
             <OpenModalMenuItem
-              className='point'
+              className='button-profile point'
               itemText="Log In"
               onItemClick={closeMenu}
               modalComponent={<LoginFormModal />}
             />
             <OpenModalMenuItem
-              className='point'
+              className='button-profile point'
               itemText="Sign Up"
               onItemClick={closeMenu}
               modalComponent={<SignupFormModal />}
             />
-          </>
+          </div>
         )}
       </ul>
     </>
