@@ -10,6 +10,11 @@
   width: 70px;
   height: 50px;
   background-color: #D7D8F0;
+  transition: background-color 0.3s ease;
+}
+
+.profile:hover {
+  background-color: #fcaa9a;
 }
 
 .profile-dropdown {
