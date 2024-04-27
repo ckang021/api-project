@@ -1,0 +1,16 @@
+.new-spot-form-unique {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  width: 700px;
+  margin: 0 auto;
+  border-radius: 10px;
+}
+
+.new-spot-title {
+  margin-bottom: 30px;
+  margin-top: 30px;
+  display: flex;
+  justify-content: center;
+  text-decoration: underline;
+}

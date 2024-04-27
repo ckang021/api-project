@@ -83,11 +83,11 @@ function SpotForm ({spot, formType}) {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className='create-update-form-container'>
       <div className='form-section'>
         <div className='form-headers'>
           <h2>Where&apos;s your place located?</h2>
-          <h3>Guest will only get your exact address once they booked a reservation.</h3>
+          <h4>Guest will only get your exact address once they booked a reservation.</h4>
         </div>
 
         <div className='form-location'>
@@ -148,11 +148,10 @@ function SpotForm ({spot, formType}) {
         </div>
       </div>
 
-
       <div className='form-section'>
         <div className='form-headers'>
           <h2>Describe your place to guests</h2>
-          <h3>Mention the best features of your space, any special amenities like fast wifi or parking, and what you love about the neighborhood</h3>
+          <h4>Mention the best features of your space, any special amenities like fast wifi or parking, and what you love about the neighborhood</h4>
         </div>
 
         <div className='form-description'>
@@ -171,7 +170,7 @@ function SpotForm ({spot, formType}) {
       <div className='form-section'>
         <div className='form-headers'>
           <h2>Create a title for your spot</h2>
-          <h3>Catch guests&apos; attention with a spot title that highlights what makes your place special.</h3>
+          <h4>Catch guests&apos; attention with a spot title that highlights what makes your place special.</h4>
         </div>
 
         <div className='form-title'>
@@ -190,7 +189,7 @@ function SpotForm ({spot, formType}) {
       <div className='form-section'>
         <div className='form-headers'>
           <h2>Set a base price for your spot</h2>
-          <h3>Competitive pricing can help your listing stand out and rank higher in search results</h3>
+          <h4>Competitive pricing can help your listing stand out and rank higher in search results</h4>
         </div>
         <div className='form-price'>
           $ <input
@@ -210,7 +209,7 @@ function SpotForm ({spot, formType}) {
         <div className='form-section'>
           <div className='form-headers'>
             <h2>Live up your spot with photos</h2>
-            <h3>Submit a link to at least one photo to publish your spot.</h3>
+            <h4>Submit a link to at least one photo to publish your spot.</h4>
           </div>
 
           <div className='form-photo-links'>
@@ -233,7 +232,7 @@ function SpotForm ({spot, formType}) {
         </div>
       )}
 
-      <button type='submit'>{formType}</button>
+      <button type='submit' className='submit-button-form'>{formType}</button>
 
     </form>
   )

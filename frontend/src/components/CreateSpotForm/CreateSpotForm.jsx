@@ -1,4 +1,5 @@
 import SpotForm from "../SpotForm/SpotForm";
+import "./CreateSpotForm.css"
 
 const CreateSpotForm = () => {
   const spot = {
@@ -12,8 +13,8 @@ const CreateSpotForm = () => {
   }
 
   return (
-    <div className="new-spot">
-      <h1>Create a Spot</h1>
+    <div className="new-spot-form-unique">
+      <h1 className="new-spot-title">Create a Spot</h1>
       <SpotForm
         spot={spot}
         formType="Create Spot"

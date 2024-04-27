@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { soloSpot } from '../../store/spots';
 import SpotForm from '../SpotForm/SpotForm';
+import "./EditSpotForm.css"
 
 
 function EditSpotForm(){
@@ -18,8 +19,8 @@ function EditSpotForm(){
   }, [dispatch, spotId])
 
   return (
-    <div>
-      <h1>Update your Spot</h1>
+    <div className='update-spot-form-unique'>
+      <h1 className='update-spot-title'>Update your Spot</h1>
       {isLoaded && sessionUser && <SpotForm spot={spot} formType="Update Spot"/>}
     </div>
   )
