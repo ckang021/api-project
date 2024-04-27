@@ -18,6 +18,7 @@
   transition: background-color 0.3s ease;
   font-size: 18px;
   height: fit-content;
+  cursor: pointer;
 }
 
 .form-section {
