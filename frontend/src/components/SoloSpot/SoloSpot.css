@@ -55,8 +55,12 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 20px 0px;
-  border-bottom: 10px black;
+  padding: 40px 0px;
+  border-bottom: 2px solid black;
+}
+
+.reviews-star-bottom {
+  margin-top: 40px;
 }
 
 .spot-description{
@@ -67,6 +71,10 @@
 
 .spot-price {
   font-weight: bolder;
+}
+
+.spot-price-text{
+  font-size: 20px;
 }
 
 .spot-reserve-box {
@@ -96,6 +104,12 @@
   border: none;
   border-radius: 5px;
   color: white;
+  transition: background-color 0.3s ease;
+  font-size: 15px;
+}
+
+.reserve-button:hover{
+  background-color: #b53d30;
 }
 
 .reserve-button:active {

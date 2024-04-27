@@ -21,16 +21,19 @@ function SpotReviews({ spotId, ownerId, reviewLength }){
     <div className="review-container">
       {sessionUser && sessionUser?.id !== ownerId && //If the current user isn't the owner and didn't post a review
       !reviews.find((review) => review.userId === sessionUser?.id) && (
-        <OpenModalButton
-          className="button-review"
+        <div className="button-review">
+           <OpenModalButton
+          className="button-review-actual"
           buttonText="Post a Review"
           modalComponent={<AddReviewModal spotId={spotId} />}
         />
+        </div>
+
       )}
 
       {!reviewLength && sessionUser?.id !== ownerId ? (
         <>
-          <p>Be the first to post a review!</p>
+          <p className="be-the-first">Be the first to post a review!</p>
         </>
       ) : (
         <>

@@ -25,3 +25,11 @@
 .review-date{
   text-decoration: underline;
 }
+
+.button-review-actual {
+  border: none;
+}
+
+.be-the-first{
+  font-size: 20px;
+}

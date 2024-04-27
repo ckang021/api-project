@@ -1,0 +1,56 @@
+.manage-spot-tile-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 30px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 40px;
+}
+
+.spot-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.manage-header {
+  display: flex;
+  flex-direction: column;
+  padding: 20px 30px;
+  gap: 10px;
+}
+
+.new-spot-button{
+  text-decoration: none;
+  color: white;
+}
+
+.update-spot-button {
+  background-color: #fa7b62;
+  padding: 10px 10px;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  transition: background-color 0.3s ease;
+  font-size: 15px;
+  width: fit-content
+}
+
+.update-spot-button:hover {
+  background-color: #b53d30;
+}
+
+.update-spot-button:active {
+  background-color: #e35242
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  padding: 20px 20px;
+  gap: 20px;
+}
+
+.delete-button-manage {
+  margin-top: 10px;
+}

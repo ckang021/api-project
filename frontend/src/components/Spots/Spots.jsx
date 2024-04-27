@@ -44,7 +44,7 @@ function Spots () {
               </div>
               </div>
               <div className="country">{spot.country}</div>
-              <div className="price">${spot.price} per night</div>
+              <div className="price"><span className="price-bold">${spot.price}</span> per night</div>
             </div>
 
           </div>

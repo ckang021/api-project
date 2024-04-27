@@ -29,7 +29,7 @@ function AddReviewModal ({ spotId }) {
 
   return (
     <div className="review-form-container">
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="form-container-reviews">
        <div className="review-area">
         <h3>How was your stay?</h3>
           <textarea
@@ -44,7 +44,7 @@ function AddReviewModal ({ spotId }) {
 
        <div className="star-area">
 
-        <div className="stars-title">Stars:</div>
+        <div className="stars-title">Stars: </div>
 
         <div className={activeRating >= 1 ? "filled" : "empty"}
           onClick={() => handleClick(1)}
@@ -90,7 +90,9 @@ function AddReviewModal ({ spotId }) {
        <button
        onSubmit={handleSubmit}
        type="submit"
-       disabled={review.length < 10 || !stars}>
+       disabled={review.length < 10 || !stars}
+        className="submit-review-button"
+       >
         Submit Your Review
        </button>
       </form>

@@ -58,7 +58,7 @@ function SoloSpot () {
 
         <div className="spot-reserve-box">
          <div className="top-stats-box">
-          <p>
+          <p className="spot-price-text">
             <span className="spot-price">${spot.price}</span> per night
           </p>
           <div className="spot-reviews">

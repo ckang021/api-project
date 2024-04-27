@@ -21,11 +21,11 @@ function DeleteButton ({ spotId }) {
   }
   return (
     <div className="spot-delete-container">
-      <h3>Confirm Delete</h3>
+      <h2>Confirm Delete</h2>
       <p>Are you sure you want to remove this spot?</p>
-      <div className="delete-buttons">
-        <button onClick={handleDelete}>Yes (Delete Spot)</button>
-        <button onClick={handleDontDelete}>No (Keep Spot)</button>
+      <div className="delete-buttons-container">
+        <button onClick={handleDelete} className="delete-button">Yes (Delete Spot)</button>
+        <button onClick={handleDontDelete} className="delete-button no-button">No (Keep Spot)</button>
       </div>
     </div>
   )

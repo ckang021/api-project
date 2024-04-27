@@ -9,14 +9,15 @@
 
 .spot-container {
   border: 2px black;
-  padding: 15px 15px;
+  padding: 20px 20px;
   border-radius: 10px;
   box-shadow: 0px 11px 20px gray;
   transition: box-shadow 1s;
+  background-color: white;
 }
 
 .spot-container:hover {
-  box-shadow: 0px 10px 10px black;
+  box-shadow: 0px 5px 10px black;
 }
 
 .single-spot-detail{
@@ -27,7 +28,7 @@
   object-fit: cover;
   height: 245px;
   width: 100%;
-  border-radius: 20px;
+  border-radius: 10px;
 }
 
 .tool-tip {
@@ -40,7 +41,7 @@
   text-align: center;
   border-radius: 6px;
   position: absolute;
-  background-color: #F5F5DC;
+  background-color: white;
   color: black;
   border-radius: 10px;
   padding: 5px 3px;
@@ -66,6 +67,7 @@
 
 .spot-details{
   color: black;
+  margin-top: 10px;
 }
 
 .city-state-stars-container {
@@ -81,4 +83,8 @@
 
 .price {
   padding-top: 20px;
+}
+
+.price-bold {
+  font-weight: bold;
 }

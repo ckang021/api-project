@@ -7,7 +7,7 @@ function ReviewStar ({ avgStars, numReviews}) {
   return (
     <div className="spot-reviews-layout">
        <p>
-        <span>
+        <span className='stars'>
           <i className="fa-solid fa-star"></i>
         </span>
         {starCheck}
