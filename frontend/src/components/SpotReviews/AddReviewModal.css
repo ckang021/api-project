@@ -20,10 +20,12 @@
 
 .filled{
   color: black;
+  cursor: pointer;
 }
 
 .empty {
   color: gray;
+  cursor: pointer;
 }
 
 .star-area{
@@ -39,9 +41,11 @@
   color: white;
   transition: background-color 0.3s ease;
   font-size: 15px;
+  cursor: pointer;
 }
 
 .submit-review-button:disabled{
   background-color: #965143;
   color: lightgray;
+  cursor: pointer;
 }
