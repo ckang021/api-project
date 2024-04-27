@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+
 .create-update-form-container {
   display: flex;
   flex-direction: column;
@@ -40,6 +42,7 @@
   width: 500px;
   height: 100px;
   padding: 0px 20px;
+  font-family: "DM Sans";
 }
 
 .form-price {
